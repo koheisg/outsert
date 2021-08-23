@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+delimiter = ','
+table_name = 'table_name'
+
+while arg = ARGV.shift
+  key = arg.split('=').first
+  value = arg.split('=').last
+
+  if key == '--delimiter'
+    delimiter = value
+  end
+  if key == '--table'
+    table_name = value
+  end
+end
+
+ARGF.each_line do |line|
+  if ARGF.lineno == 2
+    columns = line.strip.split(delimiter).map {|column| "\"#{column}\"" }
+    puts "INSERT INTO #{table_name} (#{columns.join(', ')}) VALUES"
+  else
+    values = line.strip.split(delimiter).map {|column| "\"#{column}\"" }.join(',')
+    if ARGF.eof?
+      puts "(#{values});"
+    else
+      puts "(#{values}),"
+    end
+  end
+end
