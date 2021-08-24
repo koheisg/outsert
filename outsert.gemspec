@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'outsert'
-  s.version     = '0.0.0'
+  s.version     = '0.0.1'
   s.executables << 'outsert'
   s.summary     = "outsert from (select * from users)"
   s.description = "Generate Insert Statement from select statement result csv"
